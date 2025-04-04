@@ -1,0 +1,4 @@
+payment_method,expected_status
+credit_card,200
+paypal,200
+invalid_method,400

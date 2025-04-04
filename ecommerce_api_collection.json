@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "4a4f42eb-19cd-4c75-9269-88cf24201227",
+		"name": "E-commerce API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43715573",
+		"_collection_link": "https://sirius-4982331.postman.co/workspace/Sirius's-Workspace~4039f520-d4df-425a-8f1e-7842c949d475/collection/43715573-4a4f42eb-19cd-4c75-9269-88cf24201227?action=share&source=collection_link&creator=43715573"
+	},
+	"item": [
+		{
+			"name": "用户",
+			"item": [
+				{
+					"name": "用户注册",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomUser = \"testuser_\" + Math.floor(Math.random() * 1000);\r",
+									"pm.environment.set(\"username\", randomUser);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// 正向测试：验证用户成功注册\r",
+									"pm.test(\"User registered successfully\", function () {\r",
+									"    pm.response.to.have.status(201);  // 201 Created 状态码\r",
+									"    pm.response.to.have.jsonBody('message');  // 返回 message 字段\r",
+									"    pm.expect(pm.response.json().message).to.eql(\"User registered successfully\");\r",
+									"});\r",
+									"\r",
+									"// 负向测试：验证用户名已存在时注册失败\r",
+									"pm.test(\"Username already exists\", function () {\r",
+									"    pm.response.to.have.status(400);  // 400 Bad Request 状态码\r",
+									"    pm.response.to.have.jsonBody('error');\r",
+									"    pm.expect(pm.response.json().error).to.eql(\"Username already exists\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"password123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户登录",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomUser = \"testuser_\" + Math.floor(Math.random() * 1000);\r",
+									"pm.environment.set(\"username\", randomUser);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "商品",
+			"item": [
+				{
+					"name": "获取商品列表",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Product list fetched successfully\", function () {\r",
+									"    pm.response.to.have.status(200); // 200 OK\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取单个商品详情",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "订单",
+			"item": [
+				{
+					"name": "创建订单",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,15 @@
+{
+	"id": "c002c47e-c79e-471f-8e7c-9fca99394524",
+	"name": "E-document",
+	"values": [
+		{
+			"key": "username",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-04-04T09:47:16.650Z",
+	"_postman_exported_using": "Postman/11.39.5"
+}
